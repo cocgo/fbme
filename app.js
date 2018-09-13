@@ -45,6 +45,7 @@ app.post('/webhook', (req, res) => {
     let body = req.body;
     console.log('res post:', req.body);
     // Checks this is an event from a page subscription
+    /*
     if (body.object === 'page') {
         // Iterates over each entry - there may be multiple if batched
         body.entry.forEach(function(entry) {
@@ -60,6 +61,7 @@ app.post('/webhook', (req, res) => {
         // Returns a '404 Not Found' if event is not from a page subscription
         res.sendStatus(404);
     }
+    */
 });
 
 
