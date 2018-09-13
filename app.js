@@ -49,13 +49,8 @@ app.post('/wh', function (req, res) {
 
 
 app.post('/webhoot', function (req, res) {
-    console.log('webhoot post:', req.body);
-
-    res.send('webhoot post:' + api.getStrDay());
-    
-    // let body = req.body;
+    let body = req.body;
     // Checks this is an event from a page subscription
-    /*
     if (body.object === 'page') {
         // Iterates over each entry - there may be multiple if batched
         body.entry.forEach(function(entry) {
@@ -71,8 +66,6 @@ app.post('/webhoot', function (req, res) {
         // Returns a '404 Not Found' if event is not from a page subscription
         res.sendStatus(404);
     }
-    */
-    
 });
 
 
