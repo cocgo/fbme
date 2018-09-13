@@ -3,7 +3,7 @@ let http = require("http");
 let https = require("https");
 let fs = require("fs");
 var bodyParser = require('body-parser');
-var api = require('./gameApi');
+var api = require('./gapi');
 
 global.garrGame = null;
 
