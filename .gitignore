@@ -6,6 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 1.key
 1.pem
+gapi2.js
 
 # Runtime data
 pids
