@@ -42,7 +42,27 @@ app.post('/', function (req, res) {
 });
 
 app.post('/wh', function (req, res) {
-    console.log('wh post:', req.body);
+    if(req.body){
+        console.log('wh post 000');
+    }else{
+        console.log('wh post 001');
+        
+        //不能正确解析json 格式的post参数
+        var body = '', jsonStr;
+        req.on('data', function (chunk) {
+            body += chunk; //读取参数流转化为字符串
+        });
+        req.on('end', function () {
+            //读取参数流结束后将转化的body字符串解析成 JSON 格式
+            try {
+                jsonStr = JSON.parse(body);
+            } catch (err) {
+                jsonStr = null;
+            }
+            jsonStr ? res.send({"status":"success", "name": jsonStr.data.name, "url": jsonStr.data.url}) : res.send({"status":"error"});
+        });
+    }
+    
     
     res.send('wh post:' + api.getStrDay());
 });
@@ -79,11 +99,30 @@ app.get('/webhook', (req, res) => {
 
 
 // Creates the endpoint for our webhook 
-app.post('/webhook', (req, res) => {
+app.post('/webhook', (req, res) => {  
+ 
     let body = req.body;
-    console.log('post webhoot:', body);
-    res.send('post post:' + api.getStrDay());
-});
+  
+    // Checks this is an event from a page subscription
+    if (body.object === 'page') {
+  
+      // Iterates over each entry - there may be multiple if batched
+      body.entry.forEach(function(entry) {
+  
+        // Gets the message. entry.messaging is an array, but 
+        // will only ever contain one message, so we get index 0
+        let webhook_event = entry.messaging[0];
+        console.log(webhook_event);
+      });
+  
+      // Returns a '200 OK' response to all requests
+      res.status(200).send('EVENT_RECEIVED');
+    } else {
+      // Returns a '404 Not Found' if event is not from a page subscription
+      res.sendStatus(404);
+    }
+  
+  });
 
 
 
