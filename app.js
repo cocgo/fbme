@@ -3,6 +3,7 @@ let http = require("http");
 let https = require("https");
 let fs = require("fs");
 var bodyParser = require('body-parser');
+var api = require('./gameApi');
 
 global.garrGame = null;
 
@@ -27,7 +28,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 // get获取
 app.get('/', function (req, res) {
-    let strDate = (new Date()).format('yyyy-MM-dd hh:mm');
+    let strDate = api.getStrDay();
     res.send('one get: 2018-09-13 to ' + strDate);
     console.log('[',strDate,'] http get success');
 
