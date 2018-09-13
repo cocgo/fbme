@@ -38,16 +38,20 @@ app.get('/', function (req, res) {
 app.post('/', function (req, res) {
     console.log('res post:', req.body);
     
+    res.send('post:' + api.getStrDay());
 });
 
 app.post('/wh', function (req, res) {
     console.log('wh post:', req.body);
     
+    res.send('wh post:' + api.getStrDay());
 });
 
 
 app.post('/webhoot', function (req, res) {
     console.log('webhoot post:', req.body);
+
+    res.send('webhoot post:' + api.getStrDay());
     
     // let body = req.body;
     // Checks this is an event from a page subscription
