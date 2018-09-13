@@ -4,6 +4,7 @@ let https = require("https");
 let fs = require("fs");
 var bodyParser = require('body-parser');
 var api = require('./gapi');
+var api2 = require('./gapi2');
 
 global.garrGame = null;
 
@@ -48,9 +49,36 @@ app.post('/wh', function (req, res) {
 });
 
 
+// Adds support for GET requests to our webhook
+app.get('/webhook', (req, res) => {
+
+    // Your verify token. Should be a random string.
+    // let VERIFY_TOKEN = "<YOUR_VERIFY_TOKEN>"
+    let VERIFY_TOKEN = api2.getToken2();
+
+    // Parse the query params
+    let mode = req.query['hub.mode'];
+    let token = req.query['hub.verify_token'];
+    let challenge = req.query['hub.challenge'];
+      
+    // Checks if a token and mode is in the query string of the request
+    if (mode && token) {
+        // Checks the mode and token sent is correct
+        if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+            // Responds with the challenge token from the request
+            console.log('WEBHOOK_VERIFIED');
+            res.status(200).send(challenge);
+        } else {
+            // Responds with '403 Forbidden' if verify tokens do not match
+            res.sendStatus(403);
+        }
+    }
+});
+
 app.post('/webhoot', function (req, res) {
     let body = req.body;
     console.log('webhoot', body);
+    
     // Checks this is an event from a page subscription
     if (body.object === 'page') {
         // Iterates over each entry - there may be multiple if batched

@@ -1,4 +1,4 @@
-// 游戏api接口
+// api接口
 module.exports = {
     
     randomString(len) {
