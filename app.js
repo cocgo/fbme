@@ -43,10 +43,10 @@ app.post('/', function (req, res) {
 
 app.post('/wh', function (req, res) {
     if(req.body){
-        console.log('wh post 000');
+        console.log('wh post 000', req.query);
     }else{
         console.log('wh post 001');
-        
+
         //不能正确解析json 格式的post参数
         var body = '', jsonStr;
         req.on('data', function (chunk) {
