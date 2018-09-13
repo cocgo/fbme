@@ -43,7 +43,7 @@ app.post('/', function (req, res) {
 
 app.post('/wh', function (req, res) {
     if(req.body){
-        console.log('wh post 000', req.query);
+        console.log('wh post 000', req.query, req.body);
     }else{
         console.log('wh post 001');
 
