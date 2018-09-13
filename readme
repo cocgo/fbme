@@ -1,0 +1,7 @@
+pm2 start app.js --name fb
+git pull
+pm2 restart fb
+pm2 logs
+pm2 stop fb
+pm2 delete fb
+
