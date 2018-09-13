@@ -72,14 +72,14 @@ app.get('/webhook', (req, res) => {
             res.sendStatus(403);
         }
     }else{
-        res.send('webhook get...');
+        res.status(200).send('webhook get...');
     }
 });
 
 
 // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {
-    res.send('webhook post00...');
+    res.status(200).send('webhook post00...');
     /*
     let body = req.body;
     // Checks this is an event from a page subscription
