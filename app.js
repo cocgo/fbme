@@ -23,8 +23,8 @@ app.use(function(req, res, next) {
     next();
 });
 // 添加json解析
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended: false}));
 
 
 // get获取
