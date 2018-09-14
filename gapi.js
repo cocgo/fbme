@@ -33,6 +33,9 @@ module.exports = {
     getStrDay(){
         return (new Date()).format('yyyy-MM-dd');
     },
+    getStrTime(){
+        return (new Date()).format('yyyy-mm-dd hh:mm:ss.sss');
+    },
     getUnixTime(){
         return (Math.round(new Date().getTime()/1000) );
     },
