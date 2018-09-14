@@ -143,8 +143,10 @@ app.post('/DUNKSHOT', (req, res) => {
             let sender_psid = webhook_event.sender.id;
             console.log('Sender ID: ' + sender_psid);
             if (webhook_event.message) {
+                console.log('Sender ID111: ' + sender_psid);
                 handleMessage(sender_psid, webhook_event.message);
             } else if (webhook_event.postback) {
+                console.log('Sender ID222: ' + sender_psid);
                 handlePostback(sender_psid, webhook_event.postback);
             }
 
@@ -235,7 +237,7 @@ function callSendAPI(sender_psid, response) {
     request({
         "uri": "https://graph.facebook.com/me/messages",
         "qs": {
-            "access_token": 'EAAX2CtZAZCOLIBADZA3PLIMPpNMk3bl3T7bmAo8ZBeo0dkCGbGzTxgZAv1OajLvPJ79tt2Oz75WBCZBmCwJq5Gbfn8VtR8H72AGxZAOZBBqkSJ4M8mLIGA1wT8AI9m059Na3EDzMyyZChS6wP1OOruTLHXZC0GSi7h77XZA3PsnL3jEDDedJJMZAN3Am'
+            "access_token": "EAAX2CtZAZCOLIBADZA3PLIMPpNMk3bl3T7bmAo8ZBeo0dkCGbGzTxgZAv1OajLvPJ79tt2Oz75WBCZBmCwJq5Gbfn8VtR8H72AGxZAOZBBqkSJ4M8mLIGA1wT8AI9m059Na3EDzMyyZChS6wP1OOruTLHXZC0GSi7h77XZA3PsnL3jEDDedJJMZAN3Am"
         },
         "method": "POST",
         "json": request_body
