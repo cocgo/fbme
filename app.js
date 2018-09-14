@@ -148,6 +148,9 @@ app.post('/DUNKSHOT', (req, res) => {
             } else if (webhook_event.postback) {
                 console.log('Sender ID222: ' + sender_psid);
                 handlePostback(sender_psid, webhook_event.postback);
+            } else if (webhook_event.game_play) {
+                console.log('Sender ID333: ' + sender_psid);
+                handleBackPlay(sender_psid, webhook_event.game_play);
             }
 
         });
@@ -221,6 +224,33 @@ function handlePostback(sender_psid, received_postback) {
         }
     }
     // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
+}
+
+function handleBackPlay(sender_psid, response) {
+    let response = {
+        "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "It has been a while since your last game. Time to get back",
+              "buttons": [
+                {
+                  "type": "game_play",
+                  "title": "Play Flappy basketball.",
+                  "payload": "{}",
+                  "game_metadata": {
+                    "context_id": "<CONTEXT_ID>"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
     callSendAPI(sender_psid, response);
 }
 
