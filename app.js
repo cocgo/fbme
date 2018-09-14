@@ -133,8 +133,8 @@ app.post('/DUNKSHOT', (req, res) => {
     // console.log('DUNKSHOT webhook post:', req.query, req.body);
     if (body.object === 'page') {
         body.entry.forEach(function(entry) {
-            let webhook_event = entry.messaging[0];
-            console.log('webhook_event:',webhook_event);
+            let event = entry.messaging[0];
+            console.log('webhook_event:', event);
             if (event.game_play) {
                 var senderId = event.sender.id; // Messenger sender id
                 var playerId = event.game_play.player_id; // Instant Games player id
