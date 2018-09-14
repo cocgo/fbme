@@ -227,7 +227,7 @@ function handlePostback(sender_psid, received_postback) {
     callSendAPI(sender_psid, response);
 }
 
-function handleBackPlay(sender_psid, response) {
+function handleBackPlay(sender_psid, response_gameplay) {
     let response = {
         "attachment": {
         "type": "template",
