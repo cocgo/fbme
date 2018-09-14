@@ -3,6 +3,7 @@ let http = require("http");
 let https = require("https");
 let fs = require("fs");
 var bodyParser = require('body-parser');
+var request = require('request');
 var api = require('./gapi');
 var api2 = require('./gapi2');
 
@@ -10,40 +11,42 @@ global.garrGame = null;
 
 // Configuare https
 const httpsOption = {
-    key : fs.readFileSync("./1.key"),
+    key: fs.readFileSync("./1.key"),
     cert: fs.readFileSync("./1.pem")
 }
 // Create service
 let app = express();
 
 // 允许所有的请求形式 
-app.use(function(req, res, next) { 
-    res.header("Access-Control-Allow-Origin", "*"); 
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
 // 添加json解析
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 
 // get获取
 app.get('/', function (req, res) {
     let strDate = api.getStrDay();
     res.send('one get: 2018-09-13 to ' + strDate);
-    console.log('[',strDate,'] http get success');
+    console.log('[', strDate, '] http get success');
 
 });
 
 // post获取
 app.post('/', function (req, res) {
     console.log('res post:', req.body);
-    
+
     res.send('post:' + api.getStrDay());
 });
 
 app.post('/wh', function (req, res) {
     console.log('wh post 000', req.query, req.body);
-    
+
     res.send('wh post:' + api.getStrDay());
 });
 
@@ -59,7 +62,7 @@ app.get('/webhook', (req, res) => {
     let mode = req.query['hub.mode'];
     let token = req.query['hub.verify_token'];
     let challenge = req.query['hub.challenge'];
-      
+
     // Checks if a token and mode is in the query string of the request
     if (mode && token) {
         // Checks the mode and token sent is correct
@@ -72,37 +75,37 @@ app.get('/webhook', (req, res) => {
             // res.sendStatus(403);
             res.status(200).send('webhook get...');
         }
-    }else{
+    } else {
         res.status(200).send('webhook get...');
     }
 });
 
 
 // Creates the endpoint for our webhook 
-app.post('/webhook', (req, res) => {  
- 
+app.post('/webhook', (req, res) => {
+
     let body = req.body;
     console.log('webhook post 000', req.query, req.body);
-  
+
     // Checks this is an event from a page subscription
     if (body.object === 'page') {
-  
-      // Iterates over each entry - there may be multiple if batched
-      body.entry.forEach(function(entry) {
-  
-        // Gets the message. entry.messaging is an array, but 
-        // will only ever contain one message, so we get index 0
-        let webhook_event = entry.messaging[0];
-        console.log('webhook_event:',webhook_event);
-      });
-  
-      // Returns a '200 OK' response to all requests
-      res.status(200).send('EVENT_RECEIVED');
+
+        // Iterates over each entry - there may be multiple if batched
+        body.entry.forEach(function (entry) {
+
+            // Gets the message. entry.messaging is an array, but 
+            // will only ever contain one message, so we get index 0
+            let webhook_event = entry.messaging[0];
+            console.log('webhook_event:', webhook_event);
+        });
+
+        // Returns a '200 OK' response to all requests
+        res.status(200).send('EVENT_RECEIVED');
     } else {
-      // Returns a '404 Not Found' if event is not from a page subscription
-      res.sendStatus(404);
+        // Returns a '404 Not Found' if event is not from a page subscription
+        res.sendStatus(404);
     }
-  
+
 });
 
 
@@ -123,47 +126,130 @@ app.get('/DUNKSHOT', (req, res) => {
             // res.sendStatus(403);
             res.status(200).send('DUNKSHOT webhook get...');
         }
-    }else{
+    } else {
         res.status(200).send('DUNKSHOT webhook get...');
     }
 });
 
-app.post('/DUNKSHOT', (req, res) => {  
-     let body = req.body;
+app.post('/DUNKSHOT', (req, res) => {
+    let body = req.body;
     // console.log('DUNKSHOT webhook post:', req.query, req.body);
     if (body.object === 'page') {
-        body.entry.forEach(function(entry) {
-            let event = entry.messaging[0];
-            console.log('webhook_event:', event);
-            if (event.game_play) {
-                var senderId = event.sender.id; // Messenger sender id
-                var playerId = event.game_play.player_id; // Instant Games player id
-                var contextId = event.game_play.context_id; 
-                var payload = event.game_play.payload;
-                var playerWon = payload['playerWon'];
-                if (playerWon) {
-                    sendMessage(
-                    senderId, 
-                    contextId, 
-                    'Congratulations on your victory!', 
-                    'Play Again'
-                    );
-                } else {
-                    sendMessage(
-                    senderId, 
-                    contextId, 
-                    'Better luck next time!', 
-                    'Rematch!'
-                    );
-                }
+        body.entry.forEach(function (entry) {
+            let webhook_event = entry.messaging[0];
+            console.log('webhook_event:', webhook_event);
+
+            // Get the sender PSID
+            let sender_psid = webhook_event.sender.id;
+            console.log('Sender ID: ' + sender_psid);
+            if (webhook_event.message) {
+                handleMessage(sender_psid, webhook_event.message);
+            } else if (webhook_event.postback) {
+                handlePostback(sender_psid, webhook_event.postback);
             }
+
         });
         res.status(200).send('EVENT_RECEIVED');
     } else {
         res.sendStatus(404);
     }
-  
+
 });
+
+
+
+
+function handleMessage(sender_psid, received_message) {
+    let response;
+
+    // Checks if the message contains text
+    if (received_message.text) {
+        // Create the payload for a basic text message, which
+        // will be added to the body of our request to the Send API
+        response = {
+            "text": `You sent the message: "${received_message.text}". Now send me an attachment!`
+        }
+    } else if (received_message.attachments) {
+        // Get the URL of the message attachment
+        let attachment_url = received_message.attachments[0].payload.url;
+        response = {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "generic",
+                    "elements": [{
+                        "title": "Is this the right picture?",
+                        "subtitle": "Tap a button to answer.",
+                        "image_url": attachment_url,
+                        "buttons": [{
+                                "type": "postback",
+                                "title": "Yes!",
+                                "payload": "yes",
+                            },
+                            {
+                                "type": "postback",
+                                "title": "No!",
+                                "payload": "no",
+                            }
+                        ],
+                    }]
+                }
+            }
+        }
+    }
+
+    // Send the response message
+    callSendAPI(sender_psid, response);
+}
+
+function handlePostback(sender_psid, received_postback) {
+    console.log('ok')
+    let response;
+    // Get the payload for the postback
+    let payload = received_postback.payload;
+
+    // Set the response based on the postback payload
+    if (payload === 'yes') {
+        response = {
+            "text": "Thanks!"
+        }
+    } else if (payload === 'no') {
+        response = {
+            "text": "Oops, try sending another image."
+        }
+    }
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
+}
+
+function callSendAPI(sender_psid, response) {
+    // Construct the message body
+    let request_body = {
+        "recipient": {
+            "id": sender_psid
+        },
+        "message": response
+    }
+
+    // Send the HTTP request to the Messenger Platform
+    request({
+        "uri": "https://graph.facebook.com/v2.6/me/messages",
+        "qs": {
+            "access_token": 'EAAX2CtZAZCOLIBADZA3PLIMPpNMk3bl3T7bmAo8ZBeo0dkCGbGzTxgZAv1OajLvPJ79tt2Oz75WBCZBmCwJq5Gbfn8VtR8H72AGxZAOZBBqkSJ4M8mLIGA1wT8AI9m059Na3EDzMyyZChS6wP1OOruTLHXZC0GSi7h77XZA3PsnL3jEDDedJJMZAN3Am'
+        },
+        "method": "POST",
+        "json": request_body
+    }, (err, res, body) => {
+        if (!err) {
+            console.log('message sent!')
+        } else {
+            console.error("Unable to send message:" + err);
+        }
+    });
+}
+
+
+
 
 
 http.createServer(app).listen(80);
