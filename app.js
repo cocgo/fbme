@@ -130,15 +130,37 @@ app.get('/DUNKSHOT', (req, res) => {
 
 app.post('/DUNKSHOT', (req, res) => {  
      let body = req.body;
-    console.log('DUNKSHOT webhook post:', req.query, req.body);
+    // console.log('DUNKSHOT webhook post:', req.query, req.body);
     if (body.object === 'page') {
-      body.entry.forEach(function(entry) {
-        let webhook_event = entry.messaging[0];
-        console.log('webhook_event:',webhook_event);
-      });
-      res.status(200).send('EVENT_RECEIVED');
+        body.entry.forEach(function(entry) {
+            let webhook_event = entry.messaging[0];
+            console.log('webhook_event:',webhook_event);
+            if (event.game_play) {
+                var senderId = event.sender.id; // Messenger sender id
+                var playerId = event.game_play.player_id; // Instant Games player id
+                var contextId = event.game_play.context_id; 
+                var payload = event.game_play.payload;
+                var playerWon = payload['playerWon'];
+                if (playerWon) {
+                    sendMessage(
+                    senderId, 
+                    contextId, 
+                    'Congratulations on your victory!', 
+                    'Play Again'
+                    );
+                } else {
+                    sendMessage(
+                    senderId, 
+                    contextId, 
+                    'Better luck next time!', 
+                    'Rematch!'
+                    );
+                }
+            }
+        });
+        res.status(200).send('EVENT_RECEIVED');
     } else {
-      res.sendStatus(404);
+        res.sendStatus(404);
     }
   
 });
