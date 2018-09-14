@@ -141,7 +141,7 @@ app.post('/DUNKSHOT', (req, res) => {
 
             // Get the sender PSID
             let sender_psid = webhook_event.sender.id;
-            console.log('Sender ID: ' + sender_psid);
+            console.log('Sender ID000: ' + sender_psid);
             if (webhook_event.message) {
                 console.log('Sender ID111: ' + sender_psid);
                 handleMessage(sender_psid, webhook_event.message);
