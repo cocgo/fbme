@@ -108,6 +108,58 @@ app.post('/webhook', (req, res) => {
 
 });
 
+//test game
+app.get('/DUNKSHOT', (req, res) => {
+    let VERIFY_TOKEN = 'DUNKSHOT';
+    let mode = req.query['hub.mode'];
+    let token = req.query['hub.verify_token'];
+    let challenge = req.query['hub.challenge'];
+    if (mode && token) {
+        // Checks the mode and token sent is correct
+        if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+            // Responds with the challenge token from the request
+            console.log('WEBHOOK_VERIFIED');
+            res.status(200).send(challenge);
+        } else {
+            // Responds with '403 Forbidden' if verify tokens do not match
+            // res.sendStatus(403);
+            res.status(200).send('DUNKSHOT webhook get...');
+        }
+    } else {
+        res.status(200).send('DUNKSHOT webhook get...');
+    }
+});
+
+app.post('/DUNKSHOT', (req, res) => {
+    let body = req.body;
+    // console.log('DUNKSHOT webhook post:', req.query, req.body);
+    if (body.object === 'page') {
+        body.entry.forEach(function (entry) {
+            let webhook_event = entry.messaging[0];
+            // console.log('webhook_event:', webhook_event);
+
+            // Get the sender PSID
+            let sender_psid = webhook_event.sender.id;
+            console.log('Sender ID000: ' + sender_psid);
+            if (webhook_event.message) {
+                console.log('Sender ID111: ' + sender_psid);
+                handleMessage(sender_psid, webhook_event.message);
+            } else if (webhook_event.postback) {
+                console.log('Sender ID222: ' + sender_psid);
+                handlePostback(sender_psid, webhook_event.postback);
+            } else if (webhook_event.game_play) {
+                console.log('Sender ID333: ' + sender_psid);
+                handleBackPlay(sender_psid, webhook_event.game_play);
+            }
+
+        });
+        res.status(200).send('EVENT_RECEIVED');
+    } else {
+        res.sendStatus(404);
+    }
+
+});
+
 
 // 投篮
 app.get('/FlappyBasketabll', (req, res) => {
@@ -293,8 +345,8 @@ function callSendAPI(sender_psid, response) {
     }
 
     //test2
-    // let GTOKEN = 'EAAX2CtZAZCOLIBADZA3PLIMPpNMk3bl3T7bmAo8ZBeo0dkCGbGzTxgZAv1OajLvPJ79tt2Oz75WBCZBmCwJq5Gbfn8VtR8H72AGxZAOZBBqkSJ4M8mLIGA1wT8AI9m059Na3EDzMyyZChS6wP1OOruTLHXZC0GSi7h77XZA3PsnL3jEDDedJJMZAN3Am';
-    let GTOKEN = 'EAAHZAzZAClqvUBABRc27bzE51L8RAsuQkvZBcX3j19f3pYjY9wIj1QT41VIooTfRE0hFZC34Jp21XDAZBbEr7CURWi7H9UAICMXMJ6QZCrHZCUCgMOfjfgTB64dWCU2ZCeVl5JaC8efhV9IZBDYThOJEnpWwFBZCWX9nWbEbIJuD5wQuMtnehYvAZBOy7Ej5Ql8VoQZD';
+    let GTOKEN = 'EAAX2CtZAZCOLIBADZA3PLIMPpNMk3bl3T7bmAo8ZBeo0dkCGbGzTxgZAv1OajLvPJ79tt2Oz75WBCZBmCwJq5Gbfn8VtR8H72AGxZAOZBBqkSJ4M8mLIGA1wT8AI9m059Na3EDzMyyZChS6wP1OOruTLHXZC0GSi7h77XZA3PsnL3jEDDedJJMZAN3Am';
+    // let GTOKEN = 'EAAHZAzZAClqvUBABRc27bzE51L8RAsuQkvZBcX3j19f3pYjY9wIj1QT41VIooTfRE0hFZC34Jp21XDAZBbEr7CURWi7H9UAICMXMJ6QZCrHZCUCgMOfjfgTB64dWCU2ZCeVl5JaC8efhV9IZBDYThOJEnpWwFBZCWX9nWbEbIJuD5wQuMtnehYvAZBOy7Ej5Ql8VoQZD';
 
     // Send the HTTP request to the Messenger Platform
     request({
