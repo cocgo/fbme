@@ -110,8 +110,8 @@ app.post('/webhook', (req, res) => {
 
 
 // 投篮
-app.get('/DUNKSHOT', (req, res) => {
-    let VERIFY_TOKEN = 'DUNKSHOT';
+app.get('/FlappyBasketabll', (req, res) => {
+    let VERIFY_TOKEN = 'FlappyBasketabll';
     let mode = req.query['hub.mode'];
     let token = req.query['hub.verify_token'];
     let challenge = req.query['hub.challenge'];
@@ -131,7 +131,7 @@ app.get('/DUNKSHOT', (req, res) => {
     }
 });
 
-app.post('/DUNKSHOT', (req, res) => {
+app.post('/FlappyBasketabll', (req, res) => {
     let body = req.body;
     // console.log('DUNKSHOT webhook post:', req.query, req.body);
     if (body.object === 'page') {
@@ -292,11 +292,15 @@ function callSendAPI(sender_psid, response) {
         "message": response
     }
 
+    //test2
+    // let GTOKEN = 'EAAX2CtZAZCOLIBADZA3PLIMPpNMk3bl3T7bmAo8ZBeo0dkCGbGzTxgZAv1OajLvPJ79tt2Oz75WBCZBmCwJq5Gbfn8VtR8H72AGxZAOZBBqkSJ4M8mLIGA1wT8AI9m059Na3EDzMyyZChS6wP1OOruTLHXZC0GSi7h77XZA3PsnL3jEDDedJJMZAN3Am';
+    let GTOKEN = 'EAAHZAzZAClqvUBABRc27bzE51L8RAsuQkvZBcX3j19f3pYjY9wIj1QT41VIooTfRE0hFZC34Jp21XDAZBbEr7CURWi7H9UAICMXMJ6QZCrHZCUCgMOfjfgTB64dWCU2ZCeVl5JaC8efhV9IZBDYThOJEnpWwFBZCWX9nWbEbIJuD5wQuMtnehYvAZBOy7Ej5Ql8VoQZD';
+
     // Send the HTTP request to the Messenger Platform
     request({
         "uri": "https://graph.facebook.com/me/messages",
         "qs": {
-            "access_token": "EAAX2CtZAZCOLIBADZA3PLIMPpNMk3bl3T7bmAo8ZBeo0dkCGbGzTxgZAv1OajLvPJ79tt2Oz75WBCZBmCwJq5Gbfn8VtR8H72AGxZAOZBBqkSJ4M8mLIGA1wT8AI9m059Na3EDzMyyZChS6wP1OOruTLHXZC0GSi7h77XZA3PsnL3jEDDedJJMZAN3Am"
+            "access_token": GTOKEN
         },
         "method": "POST",
         "json": request_body
