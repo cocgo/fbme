@@ -228,25 +228,48 @@ function handlePostback(sender_psid, received_postback) {
 }
 
 function handleBackPlay(sender_psid, response_gameplay) {
+    // let response = {
+    //     "attachment": {
+    //         "type": "template",
+    //         "payload": {
+    //             "template_type": "generic",
+    //             "elements": [{
+    //                 "title": "We are Missing you!",
+    //                 "image_url": "https://raw.githubusercontent.com/cocgo/fbme/master/share.png",
+    //                 "buttons": [{
+    //                     "type": "game_play",
+    //                     "title": "Play",
+    //                 }]
+    //             }]
+    //         }
+    //     }
+    // }
+
+    let attachment_url = 'https://raw.githubusercontent.com/cocgo/fbme/master/share.png';
     let response = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [{
-                    "title": "It has been a while since your last basketball game. Time to get back.",
-                    "image_url": "https://raw.githubusercontent.com/cocgo/fbme/master/share.png",
-                    "buttons": [{
-                        "type": "game_play",
-                        "title": "Play",
-                        "payload": "{}",
-                        "game_metadata": {
-                            "context_id": ""
-                        }
-                    }]
-                }]
-            }
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Is this the right picture?",
+            "subtitle": "Tap a button to answer.",
+            "image_url": attachment_url,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Yes!",
+                "payload": "yes",
+              },
+              {
+                "type": "postback",
+                "title": "No!",
+                "payload": "no",
+              }
+            ],
+          }]
         }
+      }
     }
     callSendAPI(sender_psid, response);
 }
