@@ -137,7 +137,7 @@ app.post('/DUNKSHOT', (req, res) => {
     if (body.object === 'page') {
         body.entry.forEach(function (entry) {
             let webhook_event = entry.messaging[0];
-            console.log('webhook_event:', webhook_event);
+            // console.log('webhook_event:', webhook_event);
 
             // Get the sender PSID
             let sender_psid = webhook_event.sender.id;
@@ -171,8 +171,10 @@ function handleMessage(sender_psid, received_message) {
     if (received_message.text) {
         // Create the payload for a basic text message, which
         // will be added to the body of our request to the Send API
+        //test2
         response = {
-            "text": `You sent the message: "${received_message.text}". Now send me an attachment!`
+            //"text": `You sent the message: "${received_message.text}". Now send me an attachment!`
+            "text": "Fun basketball game."
         }
     } else if (received_message.attachments) {
         // Get the URL of the message attachment
@@ -223,55 +225,61 @@ function handlePostback(sender_psid, received_postback) {
             "text": "Oops, try sending another image."
         }
     }
+    //test2
+    response = {
+        "text": "Fun basketball game."
+    }
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
 }
 
 function handleBackPlay(sender_psid, response_gameplay) {
-    // let response = {
-    //     "attachment": {
-    //         "type": "template",
-    //         "payload": {
-    //             "template_type": "generic",
-    //             "elements": [{
-    //                 "title": "We are Missing you!",
-    //                 "subtitle": "Supass yourself",
-    //                 "image_url": "https://raw.githubusercontent.com/cocgo/fbme/master/share.png",
-    //                 "buttons": [{
-    //                     "type": "game_play",
-    //                     "title": "Play",
-    //                 }]
-    //             }]
-    //         }
-    //     }
-    // }
-
     let attachment_url = 'https://raw.githubusercontent.com/cocgo/fbme/master/share.png';
+
     let response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "Is this the right picture?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": attachment_url,
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Yes!",
-                "payload": "yes",
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
-              }
-            ],
-          }]
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "We are Missing you!",
+                    "subtitle": "Supass yourself",
+                    "image_url": "https://raw.githubusercontent.com/cocgo/fbme/master/share.png",
+                    "buttons": [{
+                        "type": "game_play",
+                        "title": "Play",
+                    }]
+                }]
+            }
         }
-      }
     }
+
+    
+    // let response = {
+    //   "attachment": {
+    //     "type": "template",
+    //     "payload": {
+    //       "template_type": "generic",
+    //       "elements": [{
+    //         "title": "Is this the right picture?",
+    //         "subtitle": "Tap a button to answer.",
+    //         "image_url": attachment_url,
+    //         "buttons": [
+    //           {
+    //             "type": "postback",
+    //             "title": "Yes!",
+    //             "payload": "yes",
+    //           },
+    //           {
+    //             "type": "postback",
+    //             "title": "No!",
+    //             "payload": "no",
+    //           }
+    //         ],
+    //       }]
+    //     }
+    //   }
+    // }
     callSendAPI(sender_psid, response);
 }
 
