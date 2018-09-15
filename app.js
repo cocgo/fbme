@@ -235,6 +235,7 @@ function handleBackPlay(sender_psid, response_gameplay) {
     //             "template_type": "generic",
     //             "elements": [{
     //                 "title": "We are Missing you!",
+    //                 "subtitle": "Supass yourself",
     //                 "image_url": "https://raw.githubusercontent.com/cocgo/fbme/master/share.png",
     //                 "buttons": [{
     //                     "type": "game_play",
