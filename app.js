@@ -230,26 +230,23 @@ function handlePostback(sender_psid, received_postback) {
 function handleBackPlay(sender_psid, response_gameplay) {
     let response = {
         "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [
-            {
-              "title": "It has been a while since your last game. Time to get back",
-              "buttons": [
-                {
-                  "type": "game_play",
-                  "title": "Play Flappy basketball.",
-                  "payload": "{}",
-                  "game_metadata": {
-                    "context_id": "<CONTEXT_ID>"
-                  }
-                }
-              ]
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "It has been a while since your last basketball game. Time to get back.",
+                    "image_url": "https://raw.githubusercontent.com/cocgo/fbme/master/share.png",
+                    "buttons": [{
+                        "type": "game_play",
+                        "title": "Play",
+                        "payload": "{}",
+                        "game_metadata": {
+                            "context_id": ""
+                        }
+                    }]
+                }]
             }
-          ]
         }
-      }
     }
     callSendAPI(sender_psid, response);
 }
@@ -278,7 +275,7 @@ function callSendAPI(sender_psid, response) {
             console.error("Unable to send message:" + err);
         }
     });
-    
+
 }
 
 
