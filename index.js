@@ -177,8 +177,6 @@ function callSendAPI(sender_psid, response) {
         "message": response
     }
 
-    let GTOKEN = 'EAAHZAzZAClqvUBAEOsBI1OynSrra9T0vVMLI6tZATZCPe6REUfWp5HH7MpMAdhig015I6pKZALQLjEmg9f3b6Aw4wGAvJRCMdcvgqQD5CpDv1ZBHDZArww7KQzK50yafPWACDskrDA3jlgPeS3wkkruhxwaqlgj9rpZArmzgprAL0ZAagG3ytzQG7';
-
     // Send the HTTP request to the Messenger Platform
     request({
         "uri": "https://graph.facebook.com/me/messages",
