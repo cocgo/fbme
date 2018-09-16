@@ -34,7 +34,7 @@ module.exports = {
         return (new Date()).format('yyyy-MM-dd');
     },
     getStrTime(){
-        return (new Date()).format('yyyy-mm-dd hh:mm:ss.sss');
+        return (new Date()).format('yyyy-MM-dd hh:mm:ss');
     },
     getUnixTime(){
         return (Math.round(new Date().getTime()/1000) );
