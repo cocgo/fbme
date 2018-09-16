@@ -177,7 +177,7 @@ function callSendAPI(sender_psid, response) {
         "message": response
     }
 
-    let GTOKEN = 'EAAHZAzZAClqvUBAGzfwhpyLQWNR0MXOKuprayKDlhU69AxAZBeSGiU7FzvR4QXboZCl6UboST81Fh8mA7HAKA93bZBvxPcwnr7QW7eK1no2UurdjCtc96KbpFPtKU4g13UjmeZBy06MBjrPvNcMYiIYHgHi';
+    let GTOKEN = 'EAAHZAzZAClqvUBAGzfwhpyLQWNR0MXOKuprayKDlhU69AxAZBeSGiU7FzvR4QXboZCl6UboST81Fh8mA7HAKA93bZBvxPcwnr7QW7eK1no2UurdjCtc96KbpFPtKU4g13UjmeZBy06MBjrPvNcMYiIYHgHiY1j3oEq0JECmbMZCkeZBfctx4A3xXfZAZAyyndeGccZD';
 
     // Send the HTTP request to the Messenger Platform
     request({
