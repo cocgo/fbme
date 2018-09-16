@@ -10,6 +10,16 @@ const
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
+// get获取
+app.get('/', function (req, res) {
+    let strDate = api.getStrTime();
+    res.send('one get: ' + strDate);
+    console.log('[', strDate, '] http get success');
+
+});
+
+
+
 // Accepts POST requests at /webhook endpoint
 app.post('/webhook', (req, res) => {
     // Parse the request body from the POST
