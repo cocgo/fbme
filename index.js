@@ -48,7 +48,7 @@ app.post('/webhook', (req, res) => {
     if (body.object === 'page') {
         body.entry.forEach(function (entry) {
             let webhook_event = entry.messaging[0];
-            console.log('webhook_event:', webhook_event);
+            // console.log('webhook_event:', webhook_event);
 
             // Get the sender PSID
             let sender_psid = webhook_event.sender.id;
@@ -187,7 +187,7 @@ function callSendAPI(sender_psid, response) {
         "json": request_body
     }, (err, res, body) => {
         if (!err) {
-            console.log('message sent !')
+            console.log('message sent!')
         } else {
             console.error("Unable to send message:" + err);
         }
