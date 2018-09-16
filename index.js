@@ -60,7 +60,7 @@ app.post('/webhook', (req, res) => {
                 // console.log('Sender ID222: ' + sender_psid);
                 handlePostback(sender_psid, webhook_event.postback);
             } else if (webhook_event.game_play) {
-                // console.log('Sender ID333: ' + sender_psid);
+                console.log('Sender ID333: ' + sender_psid);
                 handleBackPlay(sender_psid, webhook_event.game_play);
             }
 
