@@ -177,8 +177,7 @@ function callSendAPI(sender_psid, response) {
         "message": response
     }
 
-    // let GTOKEN = 'EAAHZAzZAClqvUBAGzfwhpyLQWNR0MXOKuprayKDlhU69AxAZBeSGiU7FzvR4QXboZCl6UboST81Fh8mA7HAKA93bZBvxPcwnr7QW7eK1no2UurdjCtc96KbpFPtKU4g13UjmeZBy06MBjrPvNcMYiIYHgHiY1j3oEq0JECmbMZCkeZBfctx4A3xXfZAZAyyndeGccZD';
-    let GTOKEN = 'EAAHZAzZAClqvUBABRc27bzE51L8RAsuQkvZBcX3j19f3pYjY9wIj1QT41VIooTfRE0hFZC34Jp21XDAZBbEr7CURWi7H9UAICMXMJ6QZCrHZCUCgMOfjfgTB64dWCU2ZCeVl5JaC8efhV9IZBDYThOJEnpWwFBZCWX9nWbEbIJuD5wQuMtnehYvAZBOy7Ej5Ql8VoQZD';
+    let GTOKEN = 'EAAHZAzZAClqvUBAEOsBI1OynSrra9T0vVMLI6tZATZCPe6REUfWp5HH7MpMAdhig015I6pKZALQLjEmg9f3b6Aw4wGAvJRCMdcvgqQD5CpDv1ZBHDZArww7KQzK50yafPWACDskrDA3jlgPeS3wkkruhxwaqlgj9rpZArmzgprAL0ZAagG3ytzQG7';
 
     // Send the HTTP request to the Messenger Platform
     request({
@@ -190,7 +189,7 @@ function callSendAPI(sender_psid, response) {
         "json": request_body
     }, (err, res, body) => {
         if (!err) {
-            console.log('message sent!')
+            console.log('message sent !')
         } else {
             console.error("Unable to send message:" + err);
         }
