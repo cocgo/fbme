@@ -35,16 +35,16 @@ app.get('/webhook', (req, res) => {
         } else {
             // Responds with '403 Forbidden' if verify tokens do not match
             // res.sendStatus(403);
-            res.status(200).send('DUNKSHOT webhook get...');
+            res.status(200).send('webhook get...');
         }
     } else {
-        res.status(200).send('DUNKSHOT webhook get...');
+        res.status(200).send('webhook get...');
     }
 });
 
 app.post('/webhook', (req, res) => {
     let body = req.body;
-    // console.log('DUNKSHOT webhook post:', req.query, req.body);
+    // console.log('webhook post:', req.query, req.body);
     if (body.object === 'page') {
         body.entry.forEach(function (entry) {
             let webhook_event = entry.messaging[0];
