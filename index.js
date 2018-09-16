@@ -2,6 +2,7 @@
 
 // Imports dependencies and set up http server
 const
+    api = require('./gapi');
     request = require('request'),
     express = require('express'),
     body_parser = require('body-parser'),
