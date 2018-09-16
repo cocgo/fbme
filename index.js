@@ -183,7 +183,7 @@ function callSendAPI(sender_psid, response) {
     request({
         "uri": "https://graph.facebook.com/me/messages",
         "qs": {
-            "access_token": GTOKEN
+            "access_token": "EAAHZAzZAClqvUBAEOsBI1OynSrra9T0vVMLI6tZATZCPe6REUfWp5HH7MpMAdhig015I6pKZALQLjEmg9f3b6Aw4wGAvJRCMdcvgqQD5CpDv1ZBHDZArww7KQzK50yafPWACDskrDA3jlgPeS3wkkruhxwaqlgj9rpZArmzgprAL0ZAagG3ytzQG7"
         },
         "method": "POST",
         "json": request_body
