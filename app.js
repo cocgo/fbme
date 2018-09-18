@@ -147,7 +147,7 @@ app.post('/DUNKSHOT', (req, res) => {
     if (body.object === 'page') {
         body.entry.forEach(function (entry) {
             let webhook_event = entry.messaging[0];
-            console.log('webhook_event:', webhook_event);
+            // console.log('webhook_event:', webhook_event);
 
             // Get the sender PSID
             let sender_psid = webhook_event.sender.id;
@@ -162,7 +162,7 @@ app.post('/DUNKSHOT', (req, res) => {
                 console.log('Sender ID333: ' + sender_psid);
                 // handleBackPlay(sender_psid, webhook_event.game_play);
                 let nowTime = Math.floor( (new Date().getTime())/1000 );
-                // addToOneRedis(sender_psid, webhook_event.game_play.id, nowTime);
+                addToOneRedis(webhook_event.game_play.player_id, sender_psid, nowTime);
             }
 
         });
@@ -379,7 +379,7 @@ function callSendAPI(sender_psid, response) {
 
 }
 
-function addToOneRedis(sid, userid, stime){
+function addToOneRedis(userid, sid, stime){
     
     let saved = {
         lastPlay: stime,
@@ -401,10 +401,10 @@ function checkAllPlayer(){
             if(v == null || v == ''){
                 return;
             }
-            let oneData = JSON.parse(v);
-            if(dtime > oneData.lastPlay && oneData.lastPlay>0){
-                handleBackPlay(oneData.sid);
-            }
+            // let oneData = JSON.parse(v);
+            // if(dtime > oneData.lastPlay && oneData.lastPlay>0){
+            //     handleBackPlay(oneData.sid);
+            // }
         }
     });
 }
