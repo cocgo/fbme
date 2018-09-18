@@ -381,7 +381,7 @@ function callSendAPI(sender_psid, response) {
 }
 
 function addToOneRedis(userid, sid, stime){
-    console.log('addToOneRedis wait send.');
+    // console.log('set one.');
     let saved = {
         lastPlay: stime,
         sid: sid
@@ -399,7 +399,7 @@ function checkAllPlayer(){
         if(e) {
             console.log('err1',e);
         } else {
-            console.log('v',v);
+            // console.log('v',v);
             if(v == null || v == '' || v == 'null'){
                 console.log('no player');
                 return;
@@ -408,9 +408,7 @@ function checkAllPlayer(){
                 // console.log('---',typeof(id), typeof(v[id]));
                 let userid = id;
                 let oneData = JSON.parse( v[id] );
-                console.log('---:', userid, oneData);
-                console.log('test1:', dtime, oneData.lastPlay);
-                console.log('test2:', (dtime > oneData.lastPlay));
+                // console.log('---:', userid, oneData);
                 if(dtime > oneData.lastPlay && oneData.lastPlay>0){
                     handleBackPlay(oneData.sid);
                     addToOneRedis(userid, oneData.sid, 0);
@@ -422,7 +420,7 @@ function checkAllPlayer(){
 
 // 定时器，72小时后发送消息
 var j = schedule.scheduleJob('30 * * * * *', function(){
-    console.log('every minute check');
+    // console.log('every minute check');
     checkAllPlayer();
 });
 
