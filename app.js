@@ -409,7 +409,8 @@ function checkAllPlayer(){
                 let userid = id;
                 let oneData = JSON.parse( v[id] );
                 console.log('---:', userid, oneData);
-                console.log('test:', (dtime > oneData.lastPlay));
+                console.log('test1:', dtime, oneData.lastPlay);
+                console.log('test2:', (dtime > oneData.lastPlay));
                 if(dtime > oneData.lastPlay && oneData.lastPlay>0){
                     handleBackPlay(oneData.sid);
                     addToOneRedis(userid, oneData.sid, 0);
