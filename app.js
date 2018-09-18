@@ -404,6 +404,9 @@ function checkAllPlayer(){
             let userid = v[0];
             let oneData = v[1];
             console.log('test:',userid,oneData, typeof(v));
+            for(var id in v){
+                console.log('id:',id, v[id]);
+            }
             // let datav = JSON.parse(v);
             // console.log('datav:', datav,datav[0],datav[1]);
             // let oneData = JSON.parse(v);
