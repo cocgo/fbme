@@ -397,7 +397,10 @@ function checkAllPlayer(){
         if(e) {
             console.log('err1',e);
         } else {
-            console.log(v);
+            console.log('v',v);
+            if(v == null){
+                break;
+            }
             let oneData = JSON.parse(v);
             if(dtime > oneData.lastPlay && oneData.lastPlay>0){
                 handleBackPlay(oneData.sid);
