@@ -398,8 +398,8 @@ function checkAllPlayer(){
             console.log('err1',e);
         } else {
             console.log('v',v);
-            if(v == null){
-                break;
+            if(v == null || v == ''){
+                return;
             }
             let oneData = JSON.parse(v);
             if(dtime > oneData.lastPlay && oneData.lastPlay>0){
