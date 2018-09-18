@@ -380,7 +380,7 @@ function callSendAPI(sender_psid, response) {
 }
 
 function addToOneRedis(userid, sid, stime){
-    
+    console.log('addToOneRedis wait send.');
     let saved = {
         lastPlay: stime,
         sid: sid
@@ -404,7 +404,7 @@ function checkAllPlayer(){
             for(var id in v){
                 console.log('---',typeof(id), typeof(v[id]));
                 let userid = id;
-                let oneData = v[id];
+                let oneData = JSON.parse( v[id] );
                 console.log('---:', userid, oneData);
                 // console.log('id2:', (dtime > oneData.lastPlay));
                 // if(dtime > oneData.lastPlay && oneData.lastPlay>0){
