@@ -391,6 +391,7 @@ function addToOneRedis(userid, sid, stime){
 
 function checkAllPlayer(){
     let nowTime = Math.floor( (new Date().getTime())/1000 );
+    // 72小时
     let dtime = nowTime - 72*60*60;
     console.log('checkAllPlayer', nowTime);
     
@@ -399,18 +400,20 @@ function checkAllPlayer(){
             console.log('err1',e);
         } else {
             console.log('v',v);
-            if(v == null || v == ''){
+            if(v == null || v == '' || v == 'null'){
+                console.log('no player');
                 return;
             }
             for(var id in v){
-                console.log('---',typeof(id), typeof(v[id]));
+                // console.log('---',typeof(id), typeof(v[id]));
                 let userid = id;
                 let oneData = JSON.parse( v[id] );
                 console.log('---:', userid, oneData);
-                // console.log('id2:', (dtime > oneData.lastPlay));
-                // if(dtime > oneData.lastPlay && oneData.lastPlay>0){
-                //     handleBackPlay(oneData.sid);
-                // }
+                console.log('test:', (dtime > oneData.lastPlay));
+                if(dtime > oneData.lastPlay && oneData.lastPlay>0){
+                    handleBackPlay(oneData.sid);
+                    addToOneRedis(userid, oneData.sid, 0);
+                }
             }
         }
     });
