@@ -7,6 +7,17 @@ var request = require('request');
 var api = require('./gapi');
 var api2 = require('./gapi2');
 
+var schedule = require('node-schedule');
+var redis = require("redis");
+var client = redis.createClient();
+client.on("error", function (err) {
+    console.log("Redis Error:" , err);
+});
+client.on('connect', function(){
+    console.log('Redis连接成功.');
+});
+
+
 global.garrGame = null;
 
 // Configuare https
@@ -149,7 +160,9 @@ app.post('/DUNKSHOT', (req, res) => {
                 handlePostback(sender_psid, webhook_event.postback);
             } else if (webhook_event.game_play) {
                 console.log('Sender ID333: ' + sender_psid);
-                handleBackPlay(sender_psid, webhook_event.game_play);
+                // handleBackPlay(sender_psid, webhook_event.game_play);
+                let nowTime = Math.floor( (new Date().getTime())/1000 );
+                addToOneRedis(sender_psid, webhook_event.game_play.id, nowTime);
             }
 
         });
@@ -366,8 +379,38 @@ function callSendAPI(sender_psid, response) {
 
 }
 
+function addToOneRedis(sid, userid, stime){
+    
+    let saved = {
+        lastPlay: stime,
+        sid: sid
+    }
+    client.hset("FlappyBb", userid, JSON.stringify(saved));
+}
 
+function checkAllPlayer(){
+    let nowTime = Math.floor( (new Date().getTime())/1000 );
+    let dtime = nowTime - 72*60*60;
+    console.log('checkAllPlayer', nowTime);
+    
+    client.hgetall('FlappyBb', function(e, v){
+        if(error) {
+            console.log('err1',e);
+        } else {
+            console.log(v);
+            let oneData = JSON.parse(v);
+            if(dtime > oneData.lastPlay && oneData.lastPlay>0){
+                handleBackPlay(oneData.sid);
+            }
+        }
+    });
+}
 
+// 定时器，72小时后发送消息
+var j = schedule.scheduleJob('30 * * * * *', function(){
+    console.log('every minute check');
+    checkAllPlayer();
+});
 
 
 http.createServer(app).listen(80);
