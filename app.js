@@ -403,7 +403,7 @@ function checkAllPlayer(){
             }
             let userid = v[0];
             let oneData = v[1];
-            console.log('test:',userid,oneData, type(v));
+            console.log('test:',userid,oneData, typeof(v));
             // let datav = JSON.parse(v);
             // console.log('datav:', datav,datav[0],datav[1]);
             // let oneData = JSON.parse(v);
