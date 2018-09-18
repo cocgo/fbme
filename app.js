@@ -386,7 +386,7 @@ function addToOneRedis(userid, sid, stime){
         lastPlay: stime,
         sid: sid
     }
-    client.hset("FlappyBb", userid, JSON.stringify(saved));
+    client.hset("FlappyBbTest", userid, JSON.stringify(saved));
 }
 
 function checkAllPlayer(){
@@ -395,7 +395,7 @@ function checkAllPlayer(){
     let dtime = nowTime - 1*60;
     console.log('checkAllPlayer', nowTime);
     
-    client.hgetall('FlappyBb', function(e, v){
+    client.hgetall('FlappyBbTest', function(e, v){
         if(e) {
             console.log('err1',e);
         } else {

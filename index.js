@@ -1,5 +1,15 @@
 'use strict';
 var api = require('./gapi');
+var schedule = require('node-schedule');
+var redis = require("redis");
+var client = redis.createClient();
+client.on("error", function (err) {
+    console.log("Redis Error:" , err);
+});
+client.on('connect', function(){
+    console.log('Redis连接成功.');
+});
+
 // Imports dependencies and set up http server
 const
     
@@ -60,8 +70,10 @@ app.post('/webhook', (req, res) => {
                 // console.log('Sender ID222: ' + sender_psid);
                 handlePostback(sender_psid, webhook_event.postback);
             } else if (webhook_event.game_play) {
-                console.log('Sender ID333: ' + sender_psid);
-                handleBackPlay(sender_psid, webhook_event.game_play);
+                // console.log('Sender ID333: ' + sender_psid);
+                // handleBackPlay(sender_psid, webhook_event.game_play);
+                let nowTime = Math.floor( (new Date().getTime())/1000 );
+                addToOneRedis(webhook_event.game_play.player_id, sender_psid, nowTime);
             }
 
         });
@@ -195,3 +207,47 @@ function callSendAPI(sender_psid, response) {
 
 }
 
+
+function addToOneRedis(userid, sid, stime){
+    // console.log('addToOneRedis wait send.');
+    let saved = {
+        lastPlay: stime,
+        sid: sid
+    }
+    client.hset("FlappyBb", userid, JSON.stringify(saved));
+}
+
+function checkAllPlayer(){
+    let nowTime = Math.floor( (new Date().getTime())/1000 );
+    // 72小时
+    let dtime = nowTime - 72*60*60;
+    // console.log('checkAllPlayer', nowTime);
+    
+    client.hgetall('FlappyBb', function(e, v){
+        if(e) {
+            console.log('err1',e);
+        } else {
+            // console.log('v',v);
+            if(v == null || v == '' || v == 'null'){
+                console.log('no player');
+                return;
+            }
+            for(var id in v){
+                // console.log('---',typeof(id), typeof(v[id]));
+                let userid = id;
+                let oneData = JSON.parse( v[id] );
+                // console.log('---:', userid, oneData);
+                if(dtime > oneData.lastPlay && oneData.lastPlay>0){
+                    handleBackPlay(oneData.sid);
+                    addToOneRedis(userid, oneData.sid, 0);
+                }
+            }
+        }
+    });
+}
+
+// 定时器，72小时后发送消息
+var j = schedule.scheduleJob('30 * * * * *', function(){
+    // console.log('every minute check');
+    checkAllPlayer();
+});
