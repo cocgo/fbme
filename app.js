@@ -401,6 +401,9 @@ function checkAllPlayer(){
             if(v == null || v == ''){
                 return;
             }
+            let userid = v[0];
+            let oneData = v[1];
+            console.log('test:',userid,oneData);
             // let oneData = JSON.parse(v);
             // if(dtime > oneData.lastPlay && oneData.lastPlay>0){
             //     handleBackPlay(oneData.sid);
