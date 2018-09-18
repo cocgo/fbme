@@ -148,6 +148,7 @@ app.post('/DUNKSHOT', (req, res) => {
         body.entry.forEach(function (entry) {
             let webhook_event = entry.messaging[0];
             // console.log('webhook_event:', webhook_event);
+            // game_play: { game_id: '1677901292320946', player_id: '1830437540397070' } }
 
             // Get the sender PSID
             let sender_psid = webhook_event.sender.id;
