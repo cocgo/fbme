@@ -402,10 +402,11 @@ function checkAllPlayer(){
                 return;
             }
             for(var id in v){
-                let userid = id;
-                let oneData = JSON.parse(v[id]);
-                console.log('id:', userid, oneData);
-                console.log('id2:', (dtime > oneData.lastPlay));
+                console.log('---',typeof(id), typeof(v));
+                // let userid = id;
+                // let oneData = JSON.parse(v[id]);
+                // console.log('id:', userid, oneData);
+                // console.log('id2:', (dtime > oneData.lastPlay));
                 // if(dtime > oneData.lastPlay && oneData.lastPlay>0){
                 //     handleBackPlay(oneData.sid);
                 // }
