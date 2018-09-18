@@ -392,7 +392,7 @@ function addToOneRedis(userid, sid, stime){
 function checkAllPlayer(){
     let nowTime = Math.floor( (new Date().getTime())/1000 );
     // 72小时
-    let dtime = nowTime - 72*60*60;
+    let dtime = nowTime - 1*60;
     console.log('checkAllPlayer', nowTime);
     
     client.hgetall('FlappyBb', function(e, v){
