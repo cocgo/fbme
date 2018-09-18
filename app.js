@@ -394,7 +394,7 @@ function checkAllPlayer(){
     console.log('checkAllPlayer', nowTime);
     
     client.hgetall('FlappyBb', function(e, v){
-        if(error) {
+        if(e) {
             console.log('err1',e);
         } else {
             console.log(v);
