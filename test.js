@@ -15,5 +15,5 @@ client.on('connect', function(){
 });
 
 // 2243662185705137
-let rehs = client.hexists("FlappyBb", '2243662185705137',null);
+let rehs = client.hexists("FlappyBb", '2243662185705137');
 console.log('is have:', rehs);
