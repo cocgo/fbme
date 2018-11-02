@@ -242,7 +242,7 @@ function checkIsFirstGame(userid, sid, stime){
               sendFirstPlay(sid);
           }
         }
-
+        console.log('one player:', api.getStrTime(), userid, res);
         // 2. 保存数据，下次发送用
         addToOneRedis(userid, sid, stime);
     });
