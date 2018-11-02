@@ -73,7 +73,7 @@ app.post('/webhook', (req, res) => {
                 // console.log('Sender ID333: ' + sender_psid);
                 // handleBackPlay(sender_psid, webhook_event.game_play);
                 let nowTime = Math.floor( (new Date().getTime())/1000 );
-                addToOneRedis(webhook_event.game_play.player_id, sender_psid, nowTime);
+                checkIsFirstGame(webhook_event.game_play.player_id, sender_psid, nowTime);
             }
 
         });
@@ -180,6 +180,30 @@ function handleBackPlay(sender_psid, response_gameplay) {
     callSendAPI(sender_psid, response);
 }
 
+function sendFirstPlay(sender_psid) {
+    let attachment_url = 'https://raw.githubusercontent.com/cocgo/fbme/master/share.png';
+
+    let response = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "Thank you for the first time play Flappy Basketball.",
+                    "subtitle": "Welcome Flappy Basketball",
+                    "image_url": attachment_url,
+                    "buttons": [{
+                        "type": "game_play",
+                        "title": "Play",
+                    }]
+                }]
+            }
+        }
+    }
+
+    callSendAPI(sender_psid, response);
+}
+
 function callSendAPI(sender_psid, response) {
     // Construct the message body
     let request_body = {
@@ -207,6 +231,22 @@ function callSendAPI(sender_psid, response) {
 
 }
 
+function checkIsFirstGame(userid, sid, stime){
+    // 1. 第一次直接发送一次消息先
+    client.hexists("FlappyBb", userid, function (err, res) {
+        if (err) {
+            console.log('noredis:',err);
+        } else {
+          // 1有 0没有玩过
+          if(0 == res){
+              sendFirstPlay(sid);
+          }
+        }
+
+        // 2. 保存数据，下次发送用
+        addToOneRedis(userid, sid, stime);
+    });
+}
 
 function addToOneRedis(userid, sid, stime){
     // console.log('addToOneRedis wait send.');
@@ -219,8 +259,8 @@ function addToOneRedis(userid, sid, stime){
 
 function checkAllPlayer(){
     let nowTime = Math.floor( (new Date().getTime())/1000 );
-    // 72小时
-    let dtime = nowTime - 72*60*60;
+    // 48小时
+    let dtime = nowTime - 48*60*60;
     // console.log('checkAllPlayer', nowTime);
     
     client.hgetall('FlappyBb', function(e, v){
@@ -246,7 +286,7 @@ function checkAllPlayer(){
     });
 }
 
-// 定时器，72小时后发送消息
+// 定时器，48小时后发送消息
 var j = schedule.scheduleJob('30 * * * * *', function(){
     // console.log('every minute check');
     checkAllPlayer();

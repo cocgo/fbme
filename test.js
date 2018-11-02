@@ -14,16 +14,13 @@ client.on('connect', function () {
   console.log('Redis连接成功.');
 
   // 2243662185705137
-  let rehs = client.hexists("FlappyBb", '2243662185705137a', function (err, res) {
+  client.hexists("FlappyBb", '2243662185705137a', function (err, res) {
     if (err) {
       console.log(err);
     } else {
+      // 1有 0没有
       console.log('ok:', res);
     }
   });
-  console.log('is have:', rehs);
+  
 });
-
-// 2243662185705137
-// let rehs = client.hexists("FlappyBb", '2243662185705137');
-// console.log('is have:', rehs);
