@@ -252,6 +252,7 @@ function addToOneRedis(userid, sid, stime){
     // console.log('addToOneRedis wait send.');
     let saved = {
         lastPlay: stime,
+        sendCount: 0,
         sid: sid
     }
     client.hset("FlappyBb", userid, JSON.stringify(saved));
