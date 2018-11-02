@@ -12,8 +12,12 @@ client.on("error", function (err) {
 });
 client.on('connect', function(){
     console.log('Redis连接成功.');
+
+    // 2243662185705137
+let rehs = client.hexists("FlappyBb", '2243662185705137');
+console.log('is have:', rehs);
 });
 
 // 2243662185705137
-let rehs = client.hexists("FlappyBb", '2243662185705137');
-console.log('is have:', rehs);
+// let rehs = client.hexists("FlappyBb", '2243662185705137');
+// console.log('is have:', rehs);
