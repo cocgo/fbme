@@ -49,8 +49,7 @@ client.on('connect', function () {
             // console.log('---',typeof(id), typeof(v[id]));
             let userid = id;
             let oneData = JSON.parse( v[id] );
-            oneData.sendCount = 1;
-            client.hset("FlappyBb", userid, JSON.stringify(oneData));
+            
         }
     }
   });
