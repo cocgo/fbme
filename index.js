@@ -244,11 +244,11 @@ function checkIsFirstGame(userid, sid, stime){
         }
         console.log('one player:', api.getStrTime(), userid, res);
         // 2. 保存数据，下次发送用
-        addToOneRedis(userid, sid, stime);
+        addToOneRedis(userid, sid, stime, true);
     });
 }
 
-function addToOneRedis(userid, sid, stime){
+function addToOneRedis(userid, sid, stime, isFirst){
     // console.log('addToOneRedis wait send.');
     let saved = {
         lastPlay: stime,
@@ -280,7 +280,7 @@ function checkAllPlayer(){
                 // console.log('---:', userid, oneData);
                 if(dtime > oneData.lastPlay && oneData.lastPlay>0){
                     handleBackPlay(oneData.sid);
-                    addToOneRedis(userid, oneData.sid, 0);
+                    addToOneRedis(userid, oneData.sid, nowTime, false);
                 }
             }
         }
