@@ -13,6 +13,11 @@ module.exports = {
         return pwd;
     },
     
+    // 原生随机数获取
+    getOrgR(maxNum){
+        return Math.floor(Math.random()*888888+1) % maxNum;
+    },
+    
     getClientIp(req) {
         var ip = req.headers['x-forwarded-for'] ||
                 req.ip ||

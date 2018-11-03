@@ -159,14 +159,39 @@ function handlePostback(sender_psid, received_postback) {
 function handleBackPlay(sender_psid, response_gameplay) {
     let attachment_url = 'https://raw.githubusercontent.com/cocgo/fbme/master/share.png';
 
+    let arrTxt = [
+        {
+          "title": "We are Missing you!",
+          "subtitle": "Supass yourself",
+        },
+        {
+          "title": "hey, boy and girl",
+          "subtitle": "follow me, Enjoy sports fun",
+        },
+        {
+          "title": "You are cool today",
+          "subtitle": "I am Mr. basketball, who are you?",
+        },
+        {
+          "title": "Fight for basketball!",
+          "subtitle": "Tonight, we will take up the stadium.",
+        },
+        {
+          "title": "Fun basketball!",
+          "subtitle": "Do you miss basketball?",
+        },
+    ]
+    // 5个里随机一个文案
+    let sendTxt = arrTxt[api.getOrgR(5)];
+    
     let response = {
         "attachment": {
             "type": "template",
             "payload": {
                 "template_type": "generic",
                 "elements": [{
-                    "title": "We are Missing you!",
-                    "subtitle": "Supass yourself",
+                    "title": sendTxt.title,
+                    "subtitle": sendTxt.subtitle,
                     "image_url": attachment_url,
                     "buttons": [{
                         "type": "game_play",
