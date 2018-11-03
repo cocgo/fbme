@@ -28,6 +28,11 @@ client.on('connect', function () {
         console.log(err);
     } else{
       console.log('ok2:', res);
+      let getOne = JSON.parse(res);
+      if(!getOne.sendCount){
+        getOne.sendCount = 0;
+      }
+      console.log(getOne);
     }
  });
   
