@@ -34,6 +34,28 @@ client.on('connect', function () {
       }
       console.log(getOne);
     }
- });
+  });
+
+  
+  client.hgetall('FlappyBb', function(e, v){
+    if(e) {
+        console.log('err1',e);
+    } else {
+        // console.log('v',v);
+        if(v == null || v == '' || v == 'null'){
+            console.log('no player');
+            return;
+        }
+        for(var id in v){
+            // console.log('---',typeof(id), typeof(v[id]));
+            let userid = id;
+            let oneData = JSON.parse( v[id] );
+            if(!oneData.sendCount){
+              oneData.sendCount = 0;
+            }
+            client.hset("FlappyBb", userid, JSON.stringify(oneData));
+        }
+    }
+  });
   
 });
