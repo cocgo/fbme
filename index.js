@@ -307,7 +307,7 @@ function checkAllPlayer(){
                 let oneData = JSON.parse( v[id] );
                 // console.log('---:', userid, oneData);
                 // 大于5次不在发送了
-                if( (dtime > oneData.lastPlay) && (oneData.lastPlay>0) && (oneData.sendCount <= 5) ){
+                if( (dtime > oneData.lastPlay) && (oneData.lastPlay>0) && (oneData.sendCount < 5) ){
                     handleBackPlay(oneData.sid);
                     addToOneRedis(userid, oneData.sid, nowTime, oneData.sendCount+1);
                 }
