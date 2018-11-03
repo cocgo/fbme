@@ -36,7 +36,6 @@ client.on('connect', function () {
     }
   });
 
-  
   client.hgetall('FlappyBb', function(e, v){
     if(e) {
         console.log('err1',e);
@@ -50,9 +49,7 @@ client.on('connect', function () {
             // console.log('---',typeof(id), typeof(v[id]));
             let userid = id;
             let oneData = JSON.parse( v[id] );
-            if(!oneData.sendCount){
-              oneData.sendCount = 0;
-            }
+            oneData.sendCount = 1;
             client.hset("FlappyBb", userid, JSON.stringify(oneData));
         }
     }

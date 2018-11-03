@@ -232,6 +232,7 @@ function callSendAPI(sender_psid, response) {
 }
 
 function checkIsFirstGame(userid, sid, stime){
+    var sCount = 0;
     // 1. 第一次直接发送一次消息先
     client.hexists("FlappyBb", userid, function (err, res) {
         if (err) {
@@ -239,23 +240,25 @@ function checkIsFirstGame(userid, sid, stime){
         } else {
           // 1有 0没有玩过
           if(0 == res){
+              // 首次发送
               sendFirstPlay(sid);
+              sCount = 1;
           }
         }
         console.log('one player:', api.getStrTime(), userid, res);
         // 2. 保存数据，下次发送用
-        addToOneRedis(userid, sid, stime, true);
+        addToOneRedis(userid, sid, stime, sCount);
     });
 }
 
-function addToOneRedis(userid, sid, stime, isFirst){
+function addToOneRedis(userid, sid, stime, sCount){
     // console.log('addToOneRedis wait send.');
-    let saved = {
+    var saved = {
         lastPlay: stime,
-        sendCount: 0,
+        sendCount: sCount,
         sid: sid
     }
-    client.hset("FlappyBb", userid, JSON.stringify(saved));
+    client.hset("FlappyBb", userid, JSON.stringify(saved));    
 }
 
 function checkAllPlayer(){
@@ -278,9 +281,10 @@ function checkAllPlayer(){
                 let userid = id;
                 let oneData = JSON.parse( v[id] );
                 // console.log('---:', userid, oneData);
-                if(dtime > oneData.lastPlay && oneData.lastPlay>0){
+                // 大于5次不在发送了
+                if( (dtime > oneData.lastPlay) && (oneData.lastPlay>0) && (oneData.sendCount < 5) ){
                     handleBackPlay(oneData.sid);
-                    addToOneRedis(userid, oneData.sid, nowTime, false);
+                    addToOneRedis(userid, oneData.sid, nowTime, oneData.sendCount+1);
                 }
             }
         }
