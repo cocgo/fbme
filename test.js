@@ -14,7 +14,7 @@ client.on('connect', function () {
   console.log('Redis连接成功.');
 
   // 2243662185705137
-  client.hexists("FlappyBb", '2243662185705137', function (err, res) {
+  client.hexists("FlappyBb", "950183778439466", function (err, res) {
     if (err) {
       console.log(err);
     } else {
@@ -23,7 +23,7 @@ client.on('connect', function () {
     }
   });
 
-  client.hget("FlappyBb",'2243662185705137',function(err,res){
+  client.hget("FlappyBb","950183778439466",function(err,res){
     if(err){
         console.log(err);
     } else{
