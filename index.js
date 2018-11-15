@@ -238,11 +238,13 @@ function callSendAPI(sender_psid, response) {
         "message": response
     }
 
+    // EAAHZAzZAClqvUBAEOsBI1OynSrra9T0vVMLI6tZATZCPe6REUfWp5HH7MpMAdhig015I6pKZALQLjEmg9f3b6Aw4wGAvJRCMdcvgqQD5CpDv1ZBHDZArww7KQzK50yafPWACDskrDA3jlgPeS3wkkruhxwaqlgj9rpZArmzgprAL0ZAagG3ytzQG7
     // Send the HTTP request to the Messenger Platform
+    
     request({
         "uri": "https://graph.facebook.com/me/messages",
         "qs": {
-            "access_token": "EAAHZAzZAClqvUBAEOsBI1OynSrra9T0vVMLI6tZATZCPe6REUfWp5HH7MpMAdhig015I6pKZALQLjEmg9f3b6Aw4wGAvJRCMdcvgqQD5CpDv1ZBHDZArww7KQzK50yafPWACDskrDA3jlgPeS3wkkruhxwaqlgj9rpZArmzgprAL0ZAagG3ytzQG7"
+            "access_token": "EAAD9YRYAeeEBANJuZBeTrd5hVSVxjfyygRYekzvRyFOYH5vkeluZBvIiyZByjT0g4Ir8dDPa5iZA7N7eNZBB1W69MTsYAziEcpDcKo2vEGMOAJ6e10PkrrvZAJj9FkzoDWsiZCPOXA0Y8J2OrZBqazsBj4D3P0mncdt75vzV1MwSkX3pZCpzE5ggPpkhuKf30j9EZD"
         },
         "method": "POST",
         "json": request_body
