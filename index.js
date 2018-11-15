@@ -245,7 +245,7 @@ function callSendAPI(sender_psid, response) {
     request({
         "uri": "https://graph.facebook.com/me/messages",
         "qs": {
-            "access_token": "EAAD9YRYAeeEBAITMQOnqXhBHZAqCh9u6D9lVjsDkDNeRfPKHGzgfzNx3XTErszQE8jlHAFsHadWO5gr5ZBHgxRVV1XgpnHWNXM4p0iPho6FLeUWxURFz8yXZCZAgP4GOQQ7i9NXyWVlK2QpaUOXRThdMcAbwEui3EUcjK0OFU8tRwdlvDCaJ"
+            "access_token": "EAAD9YRYAeeEBAGiaWvtRvOkCzNx88gqBUBPOBpWBLcw2ImZBeF6IVNlulQDjK8hQVvCAjEppKwSB1InNgKZALfff22FikhDxvITavP6AqRBCjfUxf0CsK7UEWn6Vk7QIlNmiXrP7YPJ204qeuZCpMfoQZALL80uztzfeI8bZCzxlCwE9GIh6i4HAqqA7Elaz4s9R0ueVP3QZDZD"
         },
         "method": "POST",
         "json": request_body
