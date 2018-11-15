@@ -32,7 +32,7 @@ app.get('/', function (req, res) {
 
 // 投篮
 app.get('/webhook', (req, res) => {
-    let VERIFY_TOKEN = 'FlappyBasketabll';
+    let VERIFY_TOKEN = 'FlyingBasketabll';
     let mode = req.query['hub.mode'];
     let token = req.query['hub.verify_token'];
     let challenge = req.query['hub.challenge'];
