@@ -32,7 +32,8 @@ app.get('/', function (req, res) {
 
 // 投篮
 app.get('/webhook', (req, res) => {
-    let VERIFY_TOKEN = 'FlappyBasketabll';
+    // let VERIFY_TOKEN = 'FlappyBasketabll';
+    let VERIFY_TOKEN = 'FlyingBasketball';
     let mode = req.query['hub.mode'];
     let token = req.query['hub.verify_token'];
     let challenge = req.query['hub.challenge'];
@@ -239,10 +240,12 @@ function callSendAPI(sender_psid, response) {
     }
 
     // Send the HTTP request to the Messenger Platform
+    // old token
+    // EAAHZAzZAClqvUBAEOsBI1OynSrra9T0vVMLI6tZATZCPe6REUfWp5HH7MpMAdhig015I6pKZALQLjEmg9f3b6Aw4wGAvJRCMdcvgqQD5CpDv1ZBHDZArww7KQzK50yafPWACDskrDA3jlgPeS3wkkruhxwaqlgj9rpZArmzgprAL0ZAagG3ytzQG7
     request({
         "uri": "https://graph.facebook.com/me/messages",
         "qs": {
-            "access_token": "EAAHZAzZAClqvUBAEOsBI1OynSrra9T0vVMLI6tZATZCPe6REUfWp5HH7MpMAdhig015I6pKZALQLjEmg9f3b6Aw4wGAvJRCMdcvgqQD5CpDv1ZBHDZArww7KQzK50yafPWACDskrDA3jlgPeS3wkkruhxwaqlgj9rpZArmzgprAL0ZAagG3ytzQG7"
+            "access_token": "EAAD9YRYAeeEBAGWTOYJSrZCOZB9x1prXG8ZC6S3170KVuMPRCAmNZBRaUXxFifroAvnvbKQG2YHhYbi40TVRm8lMqgclOtoBLpPZB9lRdrE5t5CgHnopcZAliLjZB3YLFj7iUZBTRVJuR2jpY8tTpPzdURaTYsaW15ASuw7jk0h4k0T1JjkmSMI1wBn9Yy9sGqbuffkfbjK2bQZDZD"
         },
         "method": "POST",
         "json": request_body
@@ -259,7 +262,7 @@ function callSendAPI(sender_psid, response) {
 function checkIsFirstGame(userid, sid, stime){
     var sCount = 0;
     // 1. 第一次直接发送一次消息先
-    client.hexists("FlappyBb", userid, function (err, res) {
+    client.hexists("FlappyBb2", userid, function (err, res) {
         if (err) {
             console.log('noredis:',err);
         } else {
@@ -283,7 +286,7 @@ function addToOneRedis(userid, sid, stime, sCount){
         sendCount: sCount,
         sid: sid
     }
-    client.hset("FlappyBb", userid, JSON.stringify(saved));    
+    client.hset("FlappyBb2", userid, JSON.stringify(saved));    
 }
 
 function checkAllPlayer(){
@@ -292,7 +295,7 @@ function checkAllPlayer(){
     let dtime = nowTime - 48*60*60;
     // console.log('checkAllPlayer', nowTime);
     
-    client.hgetall('FlappyBb', function(e, v){
+    client.hgetall('FlappyBb2', function(e, v){
         if(e) {
             console.log('err1',e);
         } else {
