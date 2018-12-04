@@ -240,11 +240,11 @@ function callSendAPI(sender_psid, response) {
     
     // EAAHZAzZAClqvUBAEOsBI1OynSrra9T0vVMLI6tZATZCPe6REUfWp5HH7MpMAdhig015I6pKZALQLjEmg9f3b6Aw4wGAvJRCMdcvgqQD5CpDv1ZBHDZArww7KQzK50yafPWACDskrDA3jlgPeS3wkkruhxwaqlgj9rpZArmzgprAL0ZAagG3ytzQG7
     // Send the HTTP request to the Messenger Platform
-    
+    // EAAD9YRYAeeEBAGBQLfvmVJ4hnS6uJFvUh2IW5hdgJM00d60TJbncNOKB0ZCFUXQWI85Fe2NqLDfFfQPXXSDEoT8YUFWFbeKNlaZBmlNbocvakEv0KXrjm15OBQSRpPAMt06hbztZAXEDBT7LScL4Givxzw4ZApE21TYDyYZCODty8lZAAsZBIhnPTaZBAYRf5jfDJIaHhZCdWpA8yrkiMsgtj
     request({
         "uri": "https://graph.facebook.com/me/messages",
         "qs": {
-            "access_token": "EAAD9YRYAeeEBAGBQLfvmVJ4hnS6uJFvUh2IW5hdgJM00d60TJbncNOKB0ZCFUXQWI85Fe2NqLDfFfQPXXSDEoT8YUFWFbeKNlaZBmlNbocvakEv0KXrjm15OBQSRpPAMt06hbztZAXEDBT7LScL4Givxzw4ZApE21TYDyYZCODty8lZAAsZBIhnPTaZBAYRf5jfDJIaHhZCdWpA8yrkiMsgtj"
+            "access_token": "EAACI3qhigDEBAMCpbBJcHDGAZC4RyVG2crnywREZC5tdcQhkdLWPpZAGStaAmytZCh55WdDbGqxMZBI6N1K0uvRpi0JcQ1iUo2ZBajJIacPUdY46MYZC0mre6GLFnc1ulNJU7sTMySe8LqVq9JZAWtFvZC3GTyGrK7bvABW12rYHulkZCHZAHIEyXd8gVBirbdwbqEZCZAXJsa13K9pxZCXpvu85eq"
         },
         "method": "POST",
         "json": request_body
