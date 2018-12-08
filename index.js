@@ -240,11 +240,12 @@ function callSendAPI(sender_psid, response) {
     
     // EAAHZAzZAClqvUBAEOsBI1OynSrra9T0vVMLI6tZATZCPe6REUfWp5HH7MpMAdhig015I6pKZALQLjEmg9f3b6Aw4wGAvJRCMdcvgqQD5CpDv1ZBHDZArww7KQzK50yafPWACDskrDA3jlgPeS3wkkruhxwaqlgj9rpZArmzgprAL0ZAagG3ytzQG7
     // Send the HTTP request to the Messenger Platform
-    // EAAD9YRYAeeEBAGBQLfvmVJ4hnS6uJFvUh2IW5hdgJM00d60TJbncNOKB0ZCFUXQWI85Fe2NqLDfFfQPXXSDEoT8YUFWFbeKNlaZBmlNbocvakEv0KXrjm15OBQSRpPAMt06hbztZAXEDBT7LScL4Givxzw4ZApE21TYDyYZCODty8lZAAsZBIhnPTaZBAYRf5jfDJIaHhZCdWpA8yrkiMsgtj
+    // 1115:EAAD9YRYAeeEBAGBQLfvmVJ4hnS6uJFvUh2IW5hdgJM00d60TJbncNOKB0ZCFUXQWI85Fe2NqLDfFfQPXXSDEoT8YUFWFbeKNlaZBmlNbocvakEv0KXrjm15OBQSRpPAMt06hbztZAXEDBT7LScL4Givxzw4ZApE21TYDyYZCODty8lZAAsZBIhnPTaZBAYRf5jfDJIaHhZCdWpA8yrkiMsgtj
+    // 1206:EAAD9YRYAeeEBAMsY9jJlsB0nsVSZB83fKNZCL9cZBEk5Xt3AfpQGqFyHCReKCFHayidIDZBaMLQfFJdrX39Y71mQqp1MHk67HUZAq2g5HrRbsnZAVTEwYOY2cgoWPZAmHDdb3yhFMNojtkPepd9sWvSsFvEYn929yhzecLDYKFhbslraRq7d8uFEZBZBH1t1dVLPeLqnpeSX2cAZDZD
     request({
         "uri": "https://graph.facebook.com/me/messages",
         "qs": {
-            "access_token": "EAAD9YRYAeeEBAMsY9jJlsB0nsVSZB83fKNZCL9cZBEk5Xt3AfpQGqFyHCReKCFHayidIDZBaMLQfFJdrX39Y71mQqp1MHk67HUZAq2g5HrRbsnZAVTEwYOY2cgoWPZAmHDdb3yhFMNojtkPepd9sWvSsFvEYn929yhzecLDYKFhbslraRq7d8uFEZBZBH1t1dVLPeLqnpeSX2cAZDZD"
+            "access_token": "EAAD9YRYAeeEBAGBQLfvmVJ4hnS6uJFvUh2IW5hdgJM00d60TJbncNOKB0ZCFUXQWI85Fe2NqLDfFfQPXXSDEoT8YUFWFbeKNlaZBmlNbocvakEv0KXrjm15OBQSRpPAMt06hbztZAXEDBT7LScL4Givxzw4ZApE21TYDyYZCODty8lZAAsZBIhnPTaZBAYRf5jfDJIaHhZCdWpA8yrkiMsgtj"
         },
         "method": "POST",
         "json": request_body
@@ -279,7 +280,7 @@ function checkIsFirstGame(userid, sid, stime){
 
     // 自己账号，立刻发送测试
     if(userid == '2329136660434425'){
-        console.log('send to myself phone.')
+        console.log('---send to myself phone.')
         sendFirstPlay(sid);
     }
 }
