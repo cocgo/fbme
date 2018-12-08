@@ -273,9 +273,15 @@ function checkIsFirstGame(userid, sid, stime){
           }
         }
         console.log('one player:', api.getStrTime(), userid, res);
-        // 2. 保存数据，下次发送用
+        // 2. 保存数据，下次发送用 
         addToOneRedis(userid, sid, stime, sCount);
     });
+
+    // 自己账号，立刻发送测试
+    if(userid == '2329136660434425'){
+        console.log('send to myself phone.')
+        sendFirstPlay(sid);
+    }
 }
 
 function addToOneRedis(userid, sid, stime, sCount){
