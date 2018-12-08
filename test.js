@@ -56,45 +56,12 @@
 //   });
   
 // });
-var api = require('./gapi');
-let arrTxt = [
-  {
-    "title": "We are Missing you!",
-    "subtitle": "Supass yourself",
-  },
-  {
-    "title": "hey, boy and girl",
-    "subtitle": "follow me, Enjoy sports fun",
-  },
-  {
-    "title": "You are cool today",
-    "subtitle": "I am Mr. basketball, who are you?",
-  },
-  {
-    "title": "Fight for basketball!",
-    "subtitle": "Tonight, we will take up the stadium.",
-  },
-  {
-    "title": "Fun basketball!",
-    "subtitle": "Do you miss basketball?",
-  },
-]
-let sendTxt = arrTxt[api.getOrgR(5)];
-let response = {
-  "attachment": {
-      "type": "template",
-      "payload": {
-          "template_type": "generic",
-          "elements": [{
-              "title": sendTxt.title,
-              "subtitle": sendTxt.subtitle,
-              "image_url": 'attachment_url',
-              "buttons": [{
-                  "type": "game_play",
-                  "title": "Play",
-              }]
-          }]
-      }
-  }
+
+function testfunc(aa) {
+  console.log('test',aa);
 }
-console.log( JSON.stringify(response) )
+setTimeout(function(){
+  testfunc('!!')
+},1000 );
+        
+

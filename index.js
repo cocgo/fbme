@@ -226,7 +226,10 @@ function sendFirstPlay(sender_psid) {
         }
     }
 
-    callSendAPI(sender_psid, response);
+    // 第一次5分钟后推送
+    setTimeout(function(){
+        callSendAPI(sender_psid, response);
+    },1000 * 60 * 5);
 }
 
 function callSendAPI(sender_psid, response) {
