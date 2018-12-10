@@ -240,15 +240,12 @@ function callSendAPI(sender_psid, response) {
         },
         "message": response
     }
-    
-    // EAAHZAzZAClqvUBAEOsBI1OynSrra9T0vVMLI6tZATZCPe6REUfWp5HH7MpMAdhig015I6pKZALQLjEmg9f3b6Aw4wGAvJRCMdcvgqQD5CpDv1ZBHDZArww7KQzK50yafPWACDskrDA3jlgPeS3wkkruhxwaqlgj9rpZArmzgprAL0ZAagG3ytzQG7
     // Send the HTTP request to the Messenger Platform
-    // 1115:EAAD9YRYAeeEBAGBQLfvmVJ4hnS6uJFvUh2IW5hdgJM00d60TJbncNOKB0ZCFUXQWI85Fe2NqLDfFfQPXXSDEoT8YUFWFbeKNlaZBmlNbocvakEv0KXrjm15OBQSRpPAMt06hbztZAXEDBT7LScL4Givxzw4ZApE21TYDyYZCODty8lZAAsZBIhnPTaZBAYRf5jfDJIaHhZCdWpA8yrkiMsgtj
-    // 1206:EAAD9YRYAeeEBAMsY9jJlsB0nsVSZB83fKNZCL9cZBEk5Xt3AfpQGqFyHCReKCFHayidIDZBaMLQfFJdrX39Y71mQqp1MHk67HUZAq2g5HrRbsnZAVTEwYOY2cgoWPZAmHDdb3yhFMNojtkPepd9sWvSsFvEYn929yhzecLDYKFhbslraRq7d8uFEZBZBH1t1dVLPeLqnpeSX2cAZDZD
+    // 1209 EAAD9YRYAeeEBAJAQzNSCrMlISgO5vPWettfIt6p2dvRYRoHAwP4aCmJsTZB4IlzOcPnWK9yAp9Y9SL9TK0vlJamuMJZBTpDrUhZBcZBRSz5kGZCm45odNWXQXMmvvIJ59cxyi17SGZCwcoQgpOYtBiZCZCC9lha6eWsJJwxZCoGxCbuioNjuNTQZCp23FZBMkihkMtTifBHuJ3fgAZDZD
     request({
         "uri": "https://graph.facebook.com/me/messages",
         "qs": {
-            "access_token": "EAAD9YRYAeeEBAJAQzNSCrMlISgO5vPWettfIt6p2dvRYRoHAwP4aCmJsTZB4IlzOcPnWK9yAp9Y9SL9TK0vlJamuMJZBTpDrUhZBcZBRSz5kGZCm45odNWXQXMmvvIJ59cxyi17SGZCwcoQgpOYtBiZCZCC9lha6eWsJJwxZCoGxCbuioNjuNTQZCp23FZBMkihkMtTifBHuJ3fgAZDZD"
+            "access_token": "EAAD9YRYAeeEBAH9GBgH0tQQHhFWYHfpYH2x2m0blSClRVPFKkpw6azMDzx8OxWFLZAOjznzdZBBXPE4hj07Fhul7TE2vmZCv277CkF8ZCE3gMD7ZCo8poRSV314nZBoSgqpZBXkWTMAa4woYZAgGPinHSLTdioPI6XfQG3lG0KpsC84K9g9B2u9hkgHzB4aUyjZA2Ugm4KDsUygZDZD"
         },
         "method": "POST",
         "json": request_body
