@@ -241,11 +241,10 @@ function callSendAPI(sender_psid, response) {
         "message": response
     }
     // Send the HTTP request to the Messenger Platform
-    // 1209 EAAD9YRYAeeEBAJAQzNSCrMlISgO5vPWettfIt6p2dvRYRoHAwP4aCmJsTZB4IlzOcPnWK9yAp9Y9SL9TK0vlJamuMJZBTpDrUhZBcZBRSz5kGZCm45odNWXQXMmvvIJ59cxyi17SGZCwcoQgpOYtBiZCZCC9lha6eWsJJwxZCoGxCbuioNjuNTQZCp23FZBMkihkMtTifBHuJ3fgAZDZD
     request({
         "uri": "https://graph.facebook.com/me/messages",
         "qs": {
-            "access_token": "EAAD9YRYAeeEBAH9GBgH0tQQHhFWYHfpYH2x2m0blSClRVPFKkpw6azMDzx8OxWFLZAOjznzdZBBXPE4hj07Fhul7TE2vmZCv277CkF8ZCE3gMD7ZCo8poRSV314nZBoSgqpZBXkWTMAa4woYZAgGPinHSLTdioPI6XfQG3lG0KpsC84K9g9B2u9hkgHzB4aUyjZA2Ugm4KDsUygZDZD"
+            "access_token": "EAAD9YRYAeeEBANy4bekUWQzrO9FkDSOikMEn9TFGRuMK1gZAPoJPNws7VroHyE6lrShjpUFa42aXVbdFwMtVsnYyZClLDKjAzspUjuL45EEmlvNe5xIyXjXA6qFHeKXpOQCZBT5NY380sIzEYkXuyZC0xvgSND8ZAZAbinTOToQAZDZD"
         },
         "method": "POST",
         "json": request_body
